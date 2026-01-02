@@ -1,114 +1,738 @@
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* CSS Variables for Themes */
+:root, [data-theme="purple"] {
+    --primary: #667eea;
+    --secondary: #764ba2;
+    --accent: #f093fb;
+    --bg-gradient-start: #667eea;
+    --bg-gradient-end: #764ba2;
+    --card-bg: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #555555;
+    --text-light: #666666;
+    --border: #e0e0e0;
+    --hover: #5568d3;
+    --danger: #e74c3c;
+    --danger-hover: #c0392b;
+    --success: #2ecc71;
+    --input-bg: #f8f9fa;
+}
+
+[data-theme="blue"] {
+    --primary: #3498db;
+    --secondary: #2980b9;
+    --accent: #5dade2;
+    --bg-gradient-start: #3498db;
+    --bg-gradient-end: #2c3e50;
+}
+
+[data-theme="green"] {
+    --primary: #2ecc71;
+    --secondary: #27ae60;
+    --accent: #58d68d;
+    --bg-gradient-start: #2ecc71;
+    --bg-gradient-end: #16a085;
+}
+
+[data-theme="dark"] {
+    --primary: #2d3748;
+    --secondary: #1a202c;
+    --accent: #4a5568;
+    --bg-gradient-start: #1a202c;
+    --bg-gradient-end: #2d3748;
+    --card-bg: #2d3748;
+    --text-primary: #e2e8f0;
+    --text-secondary: #cbd5e0;
+    --text-light: #a0aec0;
+    --border: #4a5568;
+    --input-bg: #374151;
+}
+
+/* Body and Container */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 20px;
 }
 
 .container {
-    background: white;
+    background: var(--card-bg);
     border-radius: 20px;
-    padding: 40px;
+    padding: 30px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    max-width: 600px;
+    max-width: 1400px;
     width: 100%;
+    margin: 20px auto;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
+    color: var(--text-primary);
     font-size: 2.5rem;
 }
 
-.scoreboard {
+.header-controls {
     display: flex;
-    justify-content: space-around;
+    gap: 10px;
+}
+
+.icon-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover {
+    background: var(--hover);
+    transform: translateY(-2px);
+}
+
+/* Game Mode Selector */
+.game-mode-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.game-mode-btn {
+    padding: 12px 24px;
+    border: 2px solid var(--primary);
+    background: transparent;
+    color: var(--primary);
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.game-mode-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.game-mode-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* Players Grid (Custom Mode) */
+.players-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     margin-bottom: 30px;
 }
 
-.team {
-    flex: 1;
-    text-align: center;
-    padding: 20px;
-    background: #f8f9fa;
+.player-card {
+    background: var(--input-bg);
     border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
 }
 
-.team h2 {
-    color: #555;
-    margin-bottom: 20px;
+.player-card:hover {
+    transform: translateY(-5px);
+}
+
+.player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.player-name-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--border);
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 5px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.player-name-input:focus {
+    outline: none;
+    border-bottom-color: var(--primary);
+}
+
+.delete-player-btn {
+    background: var(--danger);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
     font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 1;
+}
+
+.delete-player-btn:hover {
+    background: var(--danger-hover);
+    transform: scale(1.1);
 }
 
 .score {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: bold;
-    color: #667eea;
+    color: var(--primary);
     margin: 20px 0;
     font-variant-numeric: tabular-nums;
+    transition: transform 0.2s ease;
 }
 
-button {
-    padding: 10px 20px;
-    margin: 5px;
-    font-size: 1.2rem;
+.player-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.score-btn {
+    padding: 10px 18px;
     border: none;
     border-radius: 8px;
+    background: var(--primary);
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-weight: bold;
 }
 
-.team button {
-    background: #667eea;
-    color: white;
-}
-
-.team button:hover {
-    background: #5568d3;
+.score-btn:hover {
+    background: var(--hover);
     transform: translateY(-2px);
 }
 
-.team button:active {
+.score-btn:active {
     transform: translateY(0);
 }
 
-.reset {
-    display: block;
+.score-btn.minus {
+    background: var(--danger);
+}
+
+.score-btn.minus:hover {
+    background: var(--danger-hover);
+}
+
+/* Pooch Table */
+.pooch-table-container {
+    overflow-x: auto;
+    margin-bottom: 30px;
+}
+
+.pooch-table {
     width: 100%;
-    background: #e74c3c;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    color: var(--text-primary);
+}
+
+.pooch-table th,
+.pooch-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.pooch-table th {
+    background: var(--primary);
     color: white;
-    padding: 15px;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.round-header {
+    min-width: 100px;
+}
+
+.cards-count {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.player-name-cell {
+    background: var(--input-bg);
+    font-weight: 600;
+    min-width: 150px;
+}
+
+.player-name-input-inline {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 4px;
+    width: 100px;
+    text-align: center;
+}
+
+.player-name-input-inline:focus {
+    outline: none;
+    border-bottom-color: var(--primary);
+}
+
+.delete-player-btn-inline {
+    background: var(--danger);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 8px;
+    line-height: 1;
+}
+
+.delete-player-btn-inline:hover {
+    background: var(--danger-hover);
+}
+
+.round-cell {
+    padding: 8px;
+}
+
+.round-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+}
+
+.bid-input,
+.tricks-input {
+    width: 50px;
+    padding: 4px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.9rem;
+    background: var(--input-bg);
+    color: var(--text-primary);
+}
+
+.bid-input:focus,
+.tricks-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.round-score {
+    font-weight: bold;
+    margin-top: 4px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.round-score.positive {
+    color: var(--success);
+    background: rgba(46, 204, 113, 0.1);
+}
+
+.round-score.negative {
+    color: var(--danger);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.total-cell {
+    background: var(--primary);
+    color: white;
+    font-weight: bold;
     font-size: 1.2rem;
 }
 
-.reset:hover {
-    background: #c0392b;
+/* Cribbage Board */
+.cribbage-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+#cribbage-board-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background: var(--input-bg);
+    border-radius: 15px;
+}
+
+.cribbage-peg {
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+.cribbage-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.cribbage-player-control {
+    background: var(--input-bg);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.cribbage-score-display {
+    text-align: center;
+    margin: 15px 0;
+    font-size: 1.5rem;
+}
+
+.score-label {
+    color: var(--text-secondary);
+    margin-right: 10px;
+}
+
+.score-value {
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 2rem;
+    transition: transform 0.2s ease;
+}
+
+/* Main Controls */
+.main-controls {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.control-btn {
+    flex: 1;
+    min-width: 200px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.add-btn:hover:not(:disabled) {
+    background: var(--hover);
     transform: translateY(-2px);
 }
 
-@media (max-width: 600px) {
-    .scoreboard {
-        flex-direction: column;
+.add-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.reset-btn {
+    background: var(--danger);
+    color: white;
+}
+
+.reset-btn:hover {
+    background: var(--danger-hover);
+    transform: translateY(-2px);
+}
+
+/* Settings Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    border-bottom: 2px solid var(--border);
+}
+
+.modal-header h2 {
+    color: var(--text-primary);
+    font-size: 1.8rem;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    font-size: 2.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.setting-group {
+    margin-bottom: 25px;
+}
+
+.setting-group label {
+    display: block;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.setting-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    transition: border-color 0.3s ease;
+}
+
+.setting-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.checkbox-group span {
+    color: var(--text-primary);
+}
+
+.danger-btn {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--danger);
+    background: transparent;
+    color: var(--danger);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.danger-btn:hover {
+    background: var(--danger);
+    color: white;
+}
+
+.modal-footer {
+    padding: 20px 30px;
+    border-top: 2px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-primary {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: var(--hover);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .players-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
     }
     
     h1 {
         font-size: 2rem;
     }
     
+    .header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .players-grid {
+        grid-template-columns: 1fr;
+    }
+    
     .score {
-        font-size: 3rem;
+        font-size: 2.5rem;
+    }
+    
+    .game-mode-selector {
+        flex-direction: column;
+    }
+    
+    .game-mode-btn {
+        width: 100%;
+    }
+    
+    .main-controls {
+        flex-direction: column;
+    }
+    
+    .control-btn {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .pooch-table {
+        font-size: 0.9rem;
+    }
+    
+    .pooch-table th,
+    .pooch-table td {
+        padding: 8px 4px;
+    }
+    
+    .cribbage-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 20px;
     }
 }
 
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .icon-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .player-card {
+        padding: 15px;
+    }
+    
+    .score {
+        font-size: 2rem;
+    }
+    
+    .pooch-table {
+        font-size: 0.8rem;
+    }
+    
+    .bid-input,
+    .tricks-input {
+        width: 40px;
+        font-size: 0.8rem;
+    }
+}

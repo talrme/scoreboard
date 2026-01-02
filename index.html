@@ -8,24 +8,89 @@
 </head>
 <body>
     <div class="container">
-        <h1>Scoreboard</h1>
-        <div class="scoreboard">
-            <div class="team">
-                <h2>Team A</h2>
-                <div class="score" id="scoreA">0</div>
-                <button onclick="updateScore('A', 1)">+1</button>
-                <button onclick="updateScore('A', -1)">-1</button>
-            </div>
-            <div class="team">
-                <h2>Team B</h2>
-                <div class="score" id="scoreB">0</div>
-                <button onclick="updateScore('B', 1)">+1</button>
-                <button onclick="updateScore('B', -1)">-1</button>
+        <div class="header">
+            <h1>Scoreboard</h1>
+            <div class="header-controls">
+                <button id="settings-btn" class="icon-btn" title="Settings">⚙️</button>
             </div>
         </div>
-        <button class="reset" onclick="resetScores()">Reset</button>
+        
+        <!-- Game Mode Selector -->
+        <div id="game-mode-selector" class="game-mode-selector"></div>
+        
+        <!-- Players Container (dynamic content) -->
+        <div id="players-container" class="players-grid"></div>
+        
+        <!-- Control Buttons -->
+        <div class="main-controls">
+            <button id="add-player-btn" class="control-btn add-btn">+ Add Player</button>
+            <button id="reset-btn" class="control-btn reset-btn">Reset Game</button>
+        </div>
     </div>
-    <script src="script.js"></script>
+    
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button id="close-settings" class="close-btn">×</button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="theme-select">Color Theme</label>
+                    <select id="theme-select" class="setting-input">
+                        <option value="purple">Purple</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="num-rounds">Number of Rounds (Pooch)</label>
+                    <input type="number" id="num-rounds" class="setting-input" min="1" max="20" value="10">
+                </div>
+                
+                <div class="setting-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="show-rounds" checked>
+                        <span>Show Rounds</span>
+                    </label>
+                </div>
+                
+                <div class="setting-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="show-bids" checked>
+                        <span>Show Bids</span>
+                    </label>
+                </div>
+                
+                <div class="setting-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="show-tricks" checked>
+                        <span>Show Tricks</span>
+                    </label>
+                </div>
+                
+                <div class="setting-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="show-deal" checked>
+                        <span>Show Deal Indicator</span>
+                    </label>
+                </div>
+                
+                <div class="setting-group">
+                    <button id="clear-history-btn" class="danger-btn">Clear Saved History</button>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button id="save-settings" class="btn-primary">Save Settings</button>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="script.js"></script>
 </body>
 </html>
-
